@@ -77,7 +77,7 @@ class PrivateIngredientsApiTests(TestCase):
     def test_update_ingredient(self):
         """Test updating an ingredient."""
         ingredient = Ingredient.objects.create(user=self.user, name='Cilantro')
-        payload = {'name':'Coriander'}
+        payload = {'name': 'Coriander'}
         url = detail_url(ingredient.id)
 
         res = self.client.patch(url, payload)
@@ -109,7 +109,7 @@ class PrivateIngredientsApiTests(TestCase):
         )
         recipe.ingredients.add(in1)
 
-        res = self.client.get(INGREDIENTS_URL, {'assigned_only':1})
+        res = self.client.get(INGREDIENTS_URL, {'assigned_only': 1})
 
         s1 = IngredientSerializer(in1)
         s2 = IngredientSerializer(in2)
@@ -136,6 +136,5 @@ class PrivateIngredientsApiTests(TestCase):
         recipe1.ingredients.add(ing)
         recipe2.ingredients.add(ing)
 
-        res = self.client.get(INGREDIENTS_URL, {'assigned_only':1})
+        res = self.client.get(INGREDIENTS_URL, {'assigned_only': 1})
         self.assertEqual(len(res.data), 1)
-

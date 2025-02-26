@@ -74,7 +74,7 @@ class PtivateTagsApiTests(TestCase):
         """Test updating a tag."""
         tag = Tag.objects.create(user=self.user, name='After Dinner')
 
-        payload = {'name':'Dessert'}
+        payload = {'name': 'Dessert'}
         url = detail_url(tag.id)
         res = self.client.patch(url, payload)
 
@@ -99,13 +99,13 @@ class PtivateTagsApiTests(TestCase):
         tag2 = Tag.objects.create(user=self.user, name='Lunch')
         recipe = Recipe.objects.create(
             title='Green Eggs on Toast',
-            time_minutes = 10,
+            time_minutes=10,
             price=Decimal('2.5'),
             user=self.user,
         )
         recipe.tags.add(tag1)
 
-        res = self.client.get(TAG_URL, {'assigned_only':1})
+        res = self.client.get(TAG_URL, {'assigned_only': 1})
 
         s1 = TagSerializer(tag1)
         s2 = TagSerializer(tag2)
@@ -118,18 +118,18 @@ class PtivateTagsApiTests(TestCase):
         Tag.objects.create(user=self.user, name='Dinner')
         recipe1 = Recipe.objects.create(
             title='Pancakes',
-            time_minutes = 5,
+            time_minutes=5,
             price=Decimal('5.0'),
             user=self.user,
         )
         recipe2 = Recipe.objects.create(
             title='Porridge',
-            time_minutes = 3,
+            time_minutes=3,
             price=Decimal('2.0'),
             user=self.user,
         )
         recipe1.tags.add(tag)
         recipe2.tags.add(tag)
-        res = self.client.get(TAG_URL, {'assigned_only':1})
+        res = self.client.get(TAG_URL, {'assigned_only' :1})
 
         self.assertEqual(len(res.data), 1)
